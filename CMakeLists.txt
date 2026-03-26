@@ -12,6 +12,11 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS ON)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+
 #Uncomment for hardware floating point
 add_compile_definitions(ARM_MATH_CM4;ARM_MATH_MATRIX_CHECK;ARM_MATH_ROUNDING)
 add_compile_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
@@ -37,7 +42,7 @@ project(${CMAKE_PROJECT_NAME})
 message("Build type: " ${CMAKE_BUILD_TYPE})
 
 # Enable CMake support for ASM and C languages
-enable_language(C ASM)
+enable_language(C CXX ASM)
 
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME})
@@ -75,12 +80,22 @@ list(REMOVE_ITEM CMAKE_C_IMPLICIT_LINK_LIBRARIES ob)
 # ===================== DEPENDENCIES =====================
 # e.g.
 #add_subdirectory(library/motor_drivers/UserCode)
+add_subdirectory(Modules/BasicComponents)
+add_subdirectory(Modules/MotorDrivers)
+add_subdirectory(Modules/ChassisController)
+
+
 
 # =======================================================
 
 # Add linked libraries
 target_link_libraries(${CMAKE_PROJECT_NAME}
     stm32cubemx
-
-    # Add user defined libraries
+    bsp::CANDriver
+    MotorDrivers::DJI
+    MotorDrivers::VESC
+    utils
+    libs::PIDMotor    
+    Chassis::Special_Steering4
+    MotorDrivers::Controller    # Add user defined libraries
 )
