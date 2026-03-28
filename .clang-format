@@ -28,7 +28,7 @@ AllowAllParametersOfDeclarationOnNextLine: true
 AllowAllArgumentsOnNextLine: true
 KeepEmptyLinesAtTheStartOfBlocks: false
 
-Cpp11BracedListStyle: false
+Cpp11BracedListStyle: true
 BraceWrapping:
   AfterCaseLabel: true
   AfterClass: true
