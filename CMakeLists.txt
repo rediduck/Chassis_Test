@@ -83,7 +83,9 @@ list(REMOVE_ITEM CMAKE_C_IMPLICIT_LINK_LIBRARIES ob)
 add_subdirectory(Modules/BasicComponents)
 add_subdirectory(Modules/MotorDrivers)
 add_subdirectory(Modules/ChassisController)
-
+add_subdirectory(Modules/Sensors)
+add_subdirectory(Modules/TrajectoryControl)
+add_subdirectory(Modules/VelocityProfile)
 
 
 # =======================================================
@@ -97,5 +99,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     utils
     libs::PIDMotor    
     Chassis::Special_Steering4
+    ChassisLocalization::JustEncoder
+    Chassis::ControllerMaster
     MotorDrivers::Controller    # Add user defined libraries
 )
