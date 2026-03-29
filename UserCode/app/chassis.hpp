@@ -10,6 +10,9 @@
 
 #pragma once
 
+namespace Chassis
+{
+
 using chassis::controller::Master;
 using chassis::loc::JustEncoder;
 using chassis::motion::Special_Steering4;
@@ -22,5 +25,6 @@ using controllers::MotorVelController;
 #define GPIO_REAR_RIGHT  (GPIO_t{GPIOB, GPIO_PIN_3})
 
 void APP_CHASSIS_Init();
+} // namespace Chassis
 
 #endif // _CHASSIS_H_

@@ -10,7 +10,11 @@
 #include "tim.h"
 #include "main.h"
 
-extern "C" void TIM_Callback_1kHz(TIM_HandleTypeDef* htim) {}
+extern "C" void TIM_Callback_1kHz(TIM_HandleTypeDef* htim)
+{
+    Device::update_1kHz();
+    service::Watchdog::EatAll();
+}
 
 extern "C" void TIM_Callback_100Hz(TIM_HandleTypeDef* htim) {}
 
@@ -18,8 +22,8 @@ extern "C" void Init(void* argument)
 {
     /* 初始化代码 */
 
-    APP_DEVICE_Init();
-    APP_CHASSIS_Init();
+    Device::APP_DEVICE_Init();
+    Chassis::APP_CHASSIS_Init();
     // 启动定时器
     HAL_TIM_RegisterCallback(&htim6, HAL_TIM_PERIOD_ELAPSED_CB_ID, TIM_Callback_1kHz);
     HAL_TIM_Base_Start_IT(&htim6);

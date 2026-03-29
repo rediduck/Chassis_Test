@@ -5,6 +5,8 @@
 #include "pid_motor.hpp"
 #include "motor_if.hpp"
 
+namespace Chassis
+{
 using controllers::ControlMode;
 
 static PIDMotor::Config motor_wheeldir_velpid = {.Kp             = 25.0f,
@@ -30,11 +32,11 @@ static void Motion_Init()
     for (size_t i = 0; i < 4; i++)
     {
         motor_wheelspeed_velctrl[i] =
-                new MotorVelController(motor_wheel_speed[i],
+                new MotorVelController(Device::motor::motor_wheel_speed[i],
                                        {.ctrl_mode = ControlMode::InternalVel});
-        motor_wheeldir_posctrl[i] = new MotorPosController(motor_wheel_dir[i],
+        motor_wheeldir_posctrl[i] = new MotorPosController(Device::motor::motor_wheel_dir[i],
                                                            {.position_pid = motor_wheeldir_pospid});
-        motor_wheeldir_velctrl[i] = new MotorVelController(motor_wheel_dir[i],
+        motor_wheeldir_velctrl[i] = new MotorVelController(Device::motor::motor_wheel_dir[i],
                                                            {.pid = motor_wheeldir_velpid});
     }
 #warning ("现在底盘的光电门还没装上去，自动校准暂不开启")
@@ -119,11 +121,9 @@ static void Controller_Init()
                                         .vy = {.Kp = 5.0f, .Kd = 3.0f, .abs_output_max = 0.1f},
                                         .wz = {.Kp = 30.0f, .Kd = 4.0f, .abs_output_max = 25.0f},
                                 },
-                        .limit = {
-                                .x   = {.max_vel = 1.0f, .max_accel = 1.2f, .max_jerk = 20.0f},
-                                .y   = {.max_vel = 1.0f, .max_accel = 1.2f, .max_jerk = 20.0f},
-                                .yaw = {.max_vel = 90.0f, .max_accel = 45.0f, .max_jerk = 90.0f},
-                        }});
+                        .limit = {.x   = {.max_spd = 1.0f, .max_acc = 1.2f, .max_jerk = 20.0f},
+                                  .y   = {.max_spd = 1.0f, .max_acc = 1.2f, .max_jerk = 20.0f},
+                                  .yaw = {.max_spd = 90.0f, .max_acc = 45.0f, .max_jerk = 90.0f}}});
 }
 
 void APP_CHASSIS_Init()
@@ -132,3 +132,5 @@ void APP_CHASSIS_Init()
     Loc_Init();        // 定位启动
     Controller_Init(); // 底盘控制器启动
 }
+
+} // namespace Chassis
