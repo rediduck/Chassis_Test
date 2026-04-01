@@ -24,7 +24,15 @@ using controllers::MotorVelController;
 #define GPIO_REAR_LEFT   (GPIO_t{GPIOB, GPIO_PIN_2})
 #define GPIO_REAR_RIGHT  (GPIO_t{GPIOB, GPIO_PIN_3})
 
+inline Special_Steering4* chassis_;
+inline JustEncoder*       chassis_loc_;
+inline Master*            chassis_ctrl_;
+
 void APP_CHASSIS_Init();
+
+void update_1kHz();
+void update_100Hz();
+
 } // namespace Chassis
 
 #endif // _CHASSIS_H_

@@ -9,55 +9,58 @@ namespace Chassis
 {
 using controllers::ControlMode;
 
-static PIDMotor::Config motor_wheeldir_velpid = {.Kp             = 25.0f,
-                                                 .Ki             = 0.15f,
-                                                 .Kd             = 20.0f,
+static PIDMotor::Config motor_wheeldir_velpid = {.Kp             = 500.0f,
+                                                 .Ki             = 0.1f,
+                                                 .Kd             = 0.0f,
                                                  .abs_output_max = 8000};
 
-static PIDMotor::Config motor_wheeldir_pospid = {.Kp             = 25.0f,
-                                                 .Ki             = 0.15f,
-                                                 .Kd             = 20.0f,
-                                                 .abs_output_max = 30};
+static PIDMotor::Config motor_wheeldir_pospid = {.Kp             = 2.0f,
+                                                 .Ki             = 0.0f,
+                                                 .Kd             = 0.2f,
+                                                 .abs_output_max = 400};
 
-MotorVelController* motor_wheelspeed_velctrl[4];
-MotorPosController* motor_wheeldir_posctrl[4];
-MotorVelController* motor_wheeldir_velctrl[4];
-Special_Steering4*  chassis_;
-JustEncoder*        chassis_loc_;
-Master*             chassis_ctrl_;
-
+MotorVelController* motor_wheelspeed_velctrl[4] = {nullptr};
+MotorPosController* motor_wheeldir_posctrl[4]   = {nullptr};
+MotorVelController* motor_wheeldir_velctrl[4]   = {nullptr};
 // 初始化一个底盘
 static void Motion_Init()
 {
     for (size_t i = 0; i < 4; i++)
     {
-        motor_wheelspeed_velctrl[i] =
-                new MotorVelController(Device::motor::motor_wheel_speed[i],
-                                       {.ctrl_mode = ControlMode::InternalVel});
-        motor_wheeldir_posctrl[i] = new MotorPosController(Device::motor::motor_wheel_dir[i],
-                                                           {.position_pid = motor_wheeldir_pospid});
-        motor_wheeldir_velctrl[i] = new MotorVelController(Device::motor::motor_wheel_dir[i],
-                                                           {.pid = motor_wheeldir_velpid});
+        motor_wheeldir_posctrl[i] =
+                new MotorPosController(Device::motor::motor_wheel_dir[i],
+                                       {
+                                               .position_pid       = motor_wheeldir_pospid,
+                                               .velocity_pid       = motor_wheeldir_velpid,
+                                               .pos_vel_freq_ratio = 10,
+                                       });
+        motor_wheeldir_velctrl[i]   = new MotorVelController(Device::motor::motor_wheel_dir[i],
+                                                             {.pid = motor_wheeldir_velpid});
+        motor_wheelspeed_velctrl[i] = new MotorVelController(Device::motor::motor_wheel_speed[i],
+                                                             {.ctrl_mode = ControlMode::InternalVel,
+                                                              .internal_set_ratio = 50});
     }
 #warning ("现在底盘的光电门还没装上去，自动校准暂不开启")
     chassis_ = new Special_Steering4(Special_Steering4::Config{
             .enable_calibration = false,
-            .radius             = 100.0f,
-            .distance_x         = 63.0f,
-            .distance_y         = 200.0f,
+            .radius             = 50.0f,
+            .distance_x         = 160.0f,
+            .distance_y         = 160.0f,
             .wheel_front_right =
                     {
                             .cfg =
                                     {
                                             .drive_motor  = motor_wheelspeed_velctrl[0],
                                             .steer_motor  = motor_wheeldir_posctrl[0],
-                                            .steer_offset = -90.0f,
+                                            .steer_offset = 0.0f,
+
                                     },
                             .calib_cfg =
                                     {
                                             .steer_motor = motor_wheeldir_velctrl[0],
                                             .photogate   = GPIO_FRONT_RIGHT,
                                     },
+
                     },
             .wheel_front_left =
                     {
@@ -79,7 +82,7 @@ static void Motion_Init()
                                     {
                                             .drive_motor  = motor_wheelspeed_velctrl[2],
                                             .steer_motor  = motor_wheeldir_posctrl[2],
-                                            .steer_offset = 90.0f,
+                                            .steer_offset = 0.0f,
                                     },
                             .calib_cfg =
                                     {
@@ -131,6 +134,18 @@ void APP_CHASSIS_Init()
     Motion_Init();     // 底盘启动
     Loc_Init();        // 定位启动
     Controller_Init(); // 底盘控制器启动
+}
+
+void update_1kHz()
+{
+    chassis_loc_->update(0.001f);
+
+    chassis_->update();
+}
+
+void update_100Hz()
+{
+    chassis_ctrl_->controllerUpdate();
 }
 
 } // namespace Chassis

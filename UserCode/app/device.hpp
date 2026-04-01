@@ -9,8 +9,8 @@ namespace Device
 namespace motor
 {
 // 底盘电机
-inline motors::DJIMotor*  motor_wheel_speed[4]; // 底盘轮子电机
-inline motors::VESCMotor* motor_wheel_dir[4];   // 底盘舵向电机
+inline motors::VESCMotor* motor_wheel_speed[4]; // 底盘轮子电机
+inline motors::DJIMotor*  motor_wheel_dir[4];   // 底盘舵向电机
 } // namespace motor
 
 void APP_DEVICE_Init();  // 总体设备初始化函数

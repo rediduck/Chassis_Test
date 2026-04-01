@@ -1,0 +1,41 @@
+
+OpenDocument="port.c", FilePath="D:/WTR/drivers/Chassis_Test/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c", Line=414
+OpenDocument="chassis.cpp", FilePath="D:/WTR/drivers/Chassis_Test/UserCode/app/chassis.cpp", Line=0
+OpenDocument="chassis.hpp", FilePath="D:/WTR/drivers/Chassis_Test/UserCode/app/chassis.hpp", Line=0
+OpenDocument="stm32f4xx_hal_can.c", FilePath="D:/WTR/drivers/Chassis_Test/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_can.c", Line=1377
+OpenDocument="tasks.c", FilePath="D:/WTR/drivers/Chassis_Test/Middlewares/Third_Party/FreeRTOS/Source/tasks.c", Line=3629
+OpenDocument="main.c", FilePath="D:/WTR/drivers/Chassis_Test/Core/Src/main.c", Line=49
+OpenDocument="device.cpp", FilePath="D:/WTR/drivers/Chassis_Test/UserCode/app/device.cpp", Line=6
+OpenDocument="app.cpp", FilePath="D:/WTR/drivers/Chassis_Test/UserCode/app/app.cpp", Line=0
+OpenDocument="IChassisLoc.hpp", FilePath="D:/WTR/drivers/Chassis_Test/Modules/ChassisController/Core/IChassisLoc.hpp", Line=0
+OpenDocument="device.hpp", FilePath="D:/WTR/drivers/Chassis_Test/UserCode/app/device.hpp", Line=0
+OpenDocument="syscalls.c", FilePath="D:/WTR/drivers/Chassis_Test/Core/Src/syscalls.c", Line=43
+OpenToolbar="Debug", Floating=0, x=0, y=0
+OpenWindow="Registers 1", DockArea=RIGHT, x=0, y=2, w=105, h=255, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, FilteredItems=[], RefreshRate=1
+OpenWindow="Source Files", DockArea=LEFT, x=0, y=1, w=930, h=287, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=0, w=105, h=351, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Memory 1", DockArea=BOTTOM, x=2, y=0, w=266, h=166, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, EditorAddress=0x90
+OpenWindow="Local Data", DockArea=RIGHT, x=0, y=1, w=105, h=207, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Watched Data 1", DockArea=LEFT, x=0, y=0, w=930, h=324, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Functions", DockArea=LEFT, x=0, y=2, w=930, h=202, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Data Sampling", DockArea=BOTTOM, x=1, y=0, w=237, h=166, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, VisibleTab=0, UniformSampleSpacing=0
+OpenWindow="Console", DockArea=BOTTOM, x=0, y=0, w=1202, h=166, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+TableHeader="Local Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type";"Scope"], ColWidths=[100;185;100;100;245;100]
+TableHeader="Functions", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Address";"Size";"#Insts";"Source"], ColWidths=[1236;100;100;100;602]
+TableHeader="Source Files", SortCol="File", SortOrder="DESCENDING", VisibleCols=["File";"Status";"Size";"#Insts";"Path"], ColWidths=[204;100;100;100;998]
+TableHeader="Data Sampling Table", SortCol="Index", SortOrder="ASCENDING", VisibleCols=["Index";"Time"], ColWidths=[100;100]
+TableHeader="Data Sampling Setup", SortCol="Expression", SortOrder="DESCENDING", VisibleCols=["Expression";"Type";"Value";"Min";"Max";"Average";"# Changes";"Min. Change";"Max. Change"], ColWidths=[164;100;100;100;100;100;100;100;100]
+TableHeader="Power Sampling", SortCol="Index", SortOrder="ASCENDING", VisibleCols=["Index";"Time";"Ch 0"], ColWidths=[100;100;100]
+TableHeader="Task List", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Run Count";"Priority";"Status";"Timeout";"Stack Info (Free / Size)";"ID";"Mutex Count";"Notified Value";"Notify State"], ColWidths=[110;110;110;110;110;110;110;110;110;110]
+TableHeader="Registers 1", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Description"], ColWidths=[100;105;224]
+TableHeader="Watched Data 1", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Value";"Location";"Refresh"], ColWidths=[312;100;100;401]
+TableHeader="RegisterSelectionDialog", SortCol="None", SortOrder="ASCENDING", VisibleCols=[], ColWidths=[]
+TableHeader="TargetExceptionDialog", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Address";"Description"], ColWidths=[200;100;100;359]
+WatchedExpression="chassis.cpp::Device::motor::motor_wheel_speed", RefreshRate=5, Window=Watched Data 1
+WatchedExpression="chassis.cpp::Device::motor::motor_wheel_dir", RefreshRate=5, Window=Watched Data 1
+WatchedExpression="vx", Window=Watched Data 1
+WatchedExpression="vy", Window=Watched Data 1
+WatchedExpression="wz", Window=Watched Data 1
+WatchedExpression="motor_wheeldir_posctrl", RefreshRate=5, Window=Watched Data 1
+WatchedExpression="chassis.cpp::Device::motor::motor_wheel_dir", RefreshRate=5, Window=Watched Data 1
+WatchedExpression="chassis_", RefreshRate=5, Window=Watched Data 1

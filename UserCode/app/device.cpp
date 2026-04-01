@@ -12,21 +12,21 @@ static void can_init()
     // 1. 配置 CAN 滤波器
     motors::DJIMotor::CAN_FilterInit(&hcan1, 0);
     CAN_RegisterCallback(&hcan1, motors::DJIMotor::CANBaseReceiveCallback);
-    motors::DJIMotor::CAN_FilterInit(&hcan2, 14);
-    CAN_RegisterCallback(&hcan2, motors::DJIMotor::CANBaseReceiveCallback);
+    motors::VESCMotor::CAN_FilterInit(&hcan2, 14);
+    CAN_RegisterCallback(&hcan2, motors::VESCMotor::CANBaseReceiveCallback);
 
-    HAL_CAN_RegisterCallback(&hcan1, HAL_CAN_RX_FIFO0_MSG_PENDING_CB_ID, CAN_Fifo0ReceiveCallback);
+    CAN_InitMainCallback(&hcan1);
     CAN_Start(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
-    HAL_CAN_RegisterCallback(&hcan2, HAL_CAN_RX_FIFO0_MSG_PENDING_CB_ID, CAN_Fifo0ReceiveCallback);
+    CAN_InitMainCallback(&hcan2);
     CAN_Start(&hcan2, CAN_IT_RX_FIFO0_MSG_PENDING);
 }
 
-constexpr motors::DJIMotor::Config motor_wheel_speed_config[4] = {
+constexpr motors::DJIMotor::Config motor_wheel_dir_config[4] = {
         {
                 .hcan           = &hcan1,
                 .type           = motors::DJIMotor::Type::M2006_C610,
                 .id1            = 1,
-                .reverse        = false,
+                .reverse        = true,
                 .reduction_rate = 2.0f, // 舵轮底盘2006电机外接减速比为2:1
         },
         {
@@ -47,12 +47,12 @@ constexpr motors::DJIMotor::Config motor_wheel_speed_config[4] = {
                 .hcan           = &hcan1,
                 .type           = motors::DJIMotor::Type::M2006_C610,
                 .id1            = 4,
-                .reverse        = false,
+                .reverse        = true,
                 .reduction_rate = 2.0f, // 舵轮底盘2006电机外接减速比为2:1
         },
 };
 
-constexpr motors::VESCMotor::Config motor_wheel_dir_config[4] = {
+constexpr motors::VESCMotor::Config motor_wheel_speed_config[4] = {
         {
                 .hcan       = &hcan2,
                 .id         = 0x01,
@@ -79,8 +79,8 @@ static void motors_init()
 {
     for (size_t i = 0; i < 4; ++i)
     {
-        motor::motor_wheel_speed[i] = new motors::DJIMotor(motor_wheel_speed_config[i]);
-        motor::motor_wheel_dir[i]   = new motors::VESCMotor(motor_wheel_dir_config[i]);
+        motor::motor_wheel_speed[i] = new motors::VESCMotor(motor_wheel_speed_config[i]);
+        motor::motor_wheel_dir[i]   = new motors::DJIMotor(motor_wheel_dir_config[i]);
     }
 }
 
@@ -93,10 +93,9 @@ void APP_DEVICE_Init()
 void update_1kHz()
 {
     motors::DJIMotor::SendIqCommand(&hcan1, motors::DJIMotor::IqSetCMDGroup::IqCMDGroup_1_4);
-    motors::DJIMotor::SendIqCommand(&hcan1, motors::DJIMotor::IqSetCMDGroup::IqCMDGroup_5_8);
-    motors::DJIMotor::SendIqCommand(&hcan2, motors::DJIMotor::IqSetCMDGroup::IqCMDGroup_1_4);
-    motors::DJIMotor::SendIqCommand(&hcan2, motors::DJIMotor::IqSetCMDGroup::IqCMDGroup_5_8);
 }
+
+void update_100Hz() {}
 
 bool isAllConnected()
 {
