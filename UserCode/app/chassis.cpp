@@ -43,9 +43,9 @@ static void Motion_Init()
 #warning ("现在底盘的光电门还没装上去，自动校准暂不开启")
     chassis_ = new Special_Steering4(Special_Steering4::Config{
             .enable_calibration = false,
-            .radius             = 50.0f,
-            .distance_x         = 160.0f,
-            .distance_y         = 160.0f,
+            .radius             = 45.0f,
+            .distance_x         = 226.24f,
+            .distance_y         = 226.24f,
             .wheel_front_right =
                     {
                             .cfg =
@@ -131,21 +131,23 @@ static void Controller_Init()
 
 void APP_CHASSIS_Init()
 {
-    Motion_Init();     // 底盘启动
+    Motion_Init(); // 底盘启动
+}
+void Ctrl_Init()
+{
     Loc_Init();        // 定位启动
     Controller_Init(); // 底盘控制器启动
 }
-
 void update_1kHz()
 {
-    chassis_loc_->update(0.001f);
+    if (chassis_loc_)
+        chassis_loc_->update(0.001f);
+    if (chassis_ctrl_)
+        chassis_ctrl_->controllerUpdate();
 
     chassis_->update();
 }
 
-void update_100Hz()
-{
-    chassis_ctrl_->controllerUpdate();
-}
+void update_100Hz() {}
 
 } // namespace Chassis

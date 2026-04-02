@@ -10,7 +10,7 @@
 #include "tim.h"
 #include "main.h"
 
-float vx = 1.0f, vy = 0.0f, wz = 90.0f;
+float vx = 0.314f, vy = 0.0f, wz = 90.0f;
 
 osThreadId_t         myHandle;
 const osThreadAttr_t my_attributes = {
@@ -60,9 +60,13 @@ extern "C" void Init(void* argument)
     HAL_TIM_Base_Start_IT(&htim13);
 
     // Device::waitAllConnected();
-    osDelay(5000);
+    osDelay(3000);
+
+    Chassis::Ctrl_Init();
 
     Chassis::chassis_ctrl_->enable();
+
+    // osDelay(1000000);
     osThreadNew(my, NULL, &my_attributes);
     /* 初始化完成后退出线程 */
     osThreadExit();

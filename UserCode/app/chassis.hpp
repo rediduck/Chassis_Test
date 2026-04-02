@@ -30,6 +30,8 @@ inline Master*            chassis_ctrl_;
 
 void APP_CHASSIS_Init();
 
+void Ctrl_Init();
+
 void update_1kHz();
 void update_100Hz();
 

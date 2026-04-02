@@ -54,24 +54,28 @@ constexpr motors::DJIMotor::Config motor_wheel_dir_config[4] = {
 
 constexpr motors::VESCMotor::Config motor_wheel_speed_config[4] = {
         {
-                .hcan       = &hcan2,
-                .id         = 0x01,
-                .electrodes = 14,
+                .hcan           = &hcan2,
+                .id             = 0x01,
+                .electrodes     = 14,
+                .reduction_rate = 1.64f,
         },
         {
-                .hcan       = &hcan2,
-                .id         = 0x02,
-                .electrodes = 14,
+                .hcan           = &hcan2,
+                .id             = 0x02,
+                .electrodes     = 14,
+                .reduction_rate = 1.64f,
         },
         {
-                .hcan       = &hcan2,
-                .id         = 0x03,
-                .electrodes = 14,
+                .hcan           = &hcan2,
+                .id             = 0x03,
+                .electrodes     = 14,
+                .reduction_rate = 1.64f,
         },
         {
-                .hcan       = &hcan2,
-                .id         = 0x04,
-                .electrodes = 14,
+                .hcan           = &hcan2,
+                .id             = 0x04,
+                .electrodes     = 14,
+                .reduction_rate = 1.64f,
         },
 };
 
